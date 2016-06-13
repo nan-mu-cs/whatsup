@@ -1,0 +1,14 @@
+<% include header %>
+<div>
+    <ul id="messagelist"></ul>
+</div>
+<form  onsubmit="return false">
+    <input type="hidden" id="senderid" value="<%= senderid %>"/>
+    <input type="hidden" id="receiverid" value="<%= receiverid %>">
+    <input type="text" id="message"/>
+    <input type="button" onclick="sendMessage()" value="send"/>
+</form>
+<script src="/socket.io/socket.io.js" ></script>
+<script src="./javascripts/client.js" ></script>
+
+<% include footer %>
