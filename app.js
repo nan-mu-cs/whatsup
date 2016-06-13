@@ -277,6 +277,7 @@ routes.post('/post/addfriends',function (req,res) {
 
 var Friend = require('./models/friend');
 var Group = require('./models/group');
+var User = require('../models/user');
 routes.post('/post/dealfriendrequest',function (req,res) {
     var user = req.body.user;
     var friend = req.body.friend;
@@ -298,15 +299,28 @@ routes.post('/post/dealfriendrequest',function (req,res) {
                     "user":{
                         "name":user.name,
                         "id":user.id,
-                        "photo":user.photo
+                        "photo":""
                     }
                 }
-                var data = {
-                    "type":2,
-                    "val":message
-                };
-                io.emit(friend.id,data);
-                res.send(true);
+                User.findOne({_id:user.id},function (err,doc) {
+
+                    if(!doc){
+                        var data = {
+                            "type":2,
+                            "val":message
+                        };
+                        io.emit(friend.id,data);
+                        res.send(true);
+                        return ;
+                    }
+                    var data = {
+                        "type":2,
+                        "val":message
+                    };
+                    message.user.photo = doc.photo;
+                    io.emit(friend.id,data);
+                    res.send(true);
+                })
             });
         });
     });
