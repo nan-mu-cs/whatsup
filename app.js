@@ -274,7 +274,7 @@ routes.post('/post/addfriends',function (req,res) {
 
 var Friend = require('./models/friend');
 var Group = require('./models/group');
-var User = require('../models/user');
+var User = require('./models/user');
 routes.post('/post/dealfriendrequest',function (req,res) {
     var user = req.body.user;
     var friend = req.body.friend;
