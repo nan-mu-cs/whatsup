@@ -519,7 +519,17 @@ router.post('/post/addgroup',function (req,res) {
         }
     });
 });
-
+router.get('/userphoto',function (req,res) {
+    var id = req.query.id;
+    User.findOne({_id:id},function (err,doc) {
+       if(!doc)
+       {
+           res.send('');
+           return ;
+       }
+        res.send(doc.photo.toString('base64'))
+    });
+})
 
 // router.post('/post/addfriends',function (req,res) {
 //     var newfriend = req.body;
